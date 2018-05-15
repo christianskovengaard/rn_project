@@ -16,6 +16,9 @@ import {
   Image
 } from 'react-native';
 
+import * as Actions from '../actions'
+import { connect } from 'react-redux'
+
 class Details extends Component {
 
   constructor(props) {
@@ -65,7 +68,7 @@ class Details extends Component {
           />
         </View>
         <View style={styles.body}>
-          <Button title={'Add to favorite'} onPress={() => this.props.setFavorite(this.state.item)}/>
+          <Button title={'Add to favorite'} onPress={() => this.props.handleSetFavorite(this.state.item)}/>
           <Text style={styles.title}>{this.state.item.item.name}</Text>
           <Text>{this.state.item.item.description}</Text>
         </View>
@@ -113,7 +116,7 @@ class Details extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setFavorite: () => dispatch(setFavorite())
+    handleSetFavorite: () => dispatch(setFavorite())
   }
 }
 

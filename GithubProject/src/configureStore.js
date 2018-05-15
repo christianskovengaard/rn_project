@@ -1,4 +1,5 @@
-import reducer from './reducers'
+import { createStore } from 'redux'
+import reducer from './reducers/favorites'
 
 // This connects the reducer to the store
 export default function configureStore() {
