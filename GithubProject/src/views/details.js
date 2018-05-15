@@ -16,7 +16,7 @@ import {
   Image
 } from 'react-native';
 
-export default class Details extends Component {
+class Details extends Component {
 
   constructor(props) {
     super(props);
@@ -65,6 +65,7 @@ export default class Details extends Component {
           />
         </View>
         <View style={styles.body}>
+          <Button title={'Add to favorite'} onPress={() => this.props.setFavorite(this.state.item)}/>
           <Text style={styles.title}>{this.state.item.item.name}</Text>
           <Text>{this.state.item.item.description}</Text>
         </View>
@@ -78,8 +79,6 @@ export default class Details extends Component {
 
 
   renderList(){
-    
-    console.log(this.state.pulls);
     return (
       <View>
         <Text style={styles.pullsTitle}>Pull requests</Text>
@@ -111,6 +110,21 @@ export default class Details extends Component {
   }
 
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setFavorite: () => dispatch(setFavorite())
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    ids: state.ids
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details)
 
 const styles = StyleSheet.create({
   container: {

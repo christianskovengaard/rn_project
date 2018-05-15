@@ -10,10 +10,14 @@ import {
   Text
 } from 'react-native';
 
+import {Provider} from 'react-redux'
 import { StackNavigator } from 'react-navigation'
 import List from './src/views/list'
 import Details from './src/views/details'
 
+import configureStore from './src/configureStore';
+
+const store = configureStore();
 
 const RootStack = StackNavigator({
   Home: {
@@ -29,7 +33,9 @@ export default  class App extends Component {
   render() {
     
     return (
-      <RootStack/>
+      <Provider store={store}>
+        <RootStack/>
+      </Provider>
     );
   }
 }
