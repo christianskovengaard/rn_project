@@ -14,6 +14,7 @@ import {Provider} from 'react-redux'
 import { StackNavigator } from 'react-navigation'
 import List from './src/views/list'
 import Details from './src/views/details'
+import Favorites from './src/views/favorites'
 
 import configureStore from './src/configureStore';
 
@@ -25,6 +26,9 @@ const RootStack = StackNavigator({
   },
   Details: {
     screen: Details,
+  },
+  Favorites: {
+    screen: Favorites,
   }
 });
 

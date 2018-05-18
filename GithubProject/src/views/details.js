@@ -16,8 +16,10 @@ import {
   Image
 } from 'react-native';
 
-import * as Actions from '../actions'
+import * as Actions from '../actions/index'
 import { connect } from 'react-redux'
+
+import {setFavorite} from '../actions'
 
 class Details extends Component {
 
@@ -33,11 +35,8 @@ class Details extends Component {
 
 
   componentDidMount() {
-    console.log(this.props.navigation.state.params.item);
+  
     //Get pulls request 
-    //const {item} = this.props.navigation.state.params
-    //this.state.item = this.props.navigation.state.params;
-
     let pulls_url = this.props.navigation.state.params.item.pulls_url.split('{')[0];
     fetch(pulls_url)
     .then((response) => response.json())
@@ -46,8 +45,6 @@ class Details extends Component {
         this.setState({
           pulls: responseJson,
           isLoading: false,
-        }, function(){
-            
         }); 
     })
     .catch((error) => {
@@ -58,7 +55,8 @@ class Details extends Component {
  
 
   render() {
-    
+    const {item} = this.state;
+
     this.state.item = this.props.navigation.state.params;
     return (
       <View style={styles.container}>
@@ -68,7 +66,8 @@ class Details extends Component {
           />
         </View>
         <View style={styles.body}>
-          <Button title={'Add to favorite'} onPress={() => this.props.handleSetFavorite(this.state.item)}/>
+          <Button title={'Add to favorite'} 
+            onPress={() => this.props.dispatch(setFavorite(item))}/> // Dispatch en funktion
           <Text style={styles.title}>{this.state.item.item.name}</Text>
           <Text>{this.state.item.item.description}</Text>
         </View>
@@ -114,20 +113,8 @@ class Details extends Component {
 
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    handleSetFavorite: () => dispatch(setFavorite())
-  }
-}
 
-function mapStateToProps(state) {
-  return {
-    ids: state.ids
-  }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Details)
+export default connect(state => state)(Details) // fix connect to be "dirty"
 
 const styles = StyleSheet.create({
   container: {

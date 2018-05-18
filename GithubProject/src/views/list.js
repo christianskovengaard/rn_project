@@ -50,14 +50,15 @@ export default class List extends Component {
         <View style={{flex: 1, padding: 20}}>
           <ActivityIndicator size="large"/>
           <Text style={styles.welcome}>
-            Getting som Popular Github repos
+            Getting some Popular Github repos
           </Text>
         </View>
       )
     }
 
     return (
-      <View style={styles.container}>      
+      <View style={styles.container}>  
+      <Button title={'See your favorites'} onPress={() => this.props.navigation.navigate('Favorites')}/>    
         <FlatList
           data={this.state.dataSource.items}
           renderItem={this.renderItem}
